@@ -1,4 +1,4 @@
-{% load static %}
+{% load static blog_tags %}
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,7 +12,23 @@
     </div>
     <div id="sidebar">
         <h2>Мой блог</h2>
-        <p>Это мой блог.</p>
+        <p>Всего постов: {% total_posts %}</p>
+        <h3>Последние посты</h3>
+        {% show_latest_posts 3 as latest_posts %}
+        <ul>
+        {% for post in latest_posts %}
+            <li><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></li>
+        {% endfor %}
+        </ul>
+        <h3>Самые комментируемые</h3>
+        {% get_most_commented_posts as most_commented_posts %}
+        <ul>
+        {% for post in most_commented_posts %}
+            <li><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></li>
+        {% endfor %}
+        </ul>
+        <p><a href="{% url 'blog:post_feed' %}">Подписаться на RSS</a></p>
+        <p><a href="{% url 'blog:post_search' %}">Поиск по блогу</a></p>
     </div>
 </body>
 </html>

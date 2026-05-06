@@ -3,7 +3,6 @@ from .models import Comment
 
 
 class EmailPostForm(forms.Form):
-    """Форма для отправки поста по email."""
     name = forms.CharField(max_length=25)
     email = forms.EmailField()
     to = forms.EmailField()
@@ -14,3 +13,7 @@ class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
         fields = ['name', 'email', 'body']
+
+
+class SearchForm(forms.Form):
+    query = forms.CharField(label='Поиск', max_length=100)
